@@ -18,6 +18,7 @@ export default defineConfig({
       alias: {
         '@renderer': resolve('src/renderer/src'),
         '@components': resolve('src/renderer/src/components'),
+        '@hooks': resolve('src/renderer/src/hooks'),
         '@views': resolve('src/renderer/src/views'),
         '@utils': resolve('src/renderer/src/utils'),
         '@router': resolve('src/renderer/src/router'),
@@ -26,6 +27,7 @@ export default defineConfig({
         '@styles': resolve('src/renderer/src/styles'),
         '@types': resolve('src/renderer/src/types'),
         '@api': resolve('src/renderer/src/api'),
+        '@layout': resolve('src/renderer/src/layout'),
       }
     },
     server: {

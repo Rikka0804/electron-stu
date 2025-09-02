@@ -7,17 +7,23 @@ const app = createApp(App)
 
 import router from './router'
 //状态管理
-import { createPinia } from 'pinia'
-import piniaPluginPersist from 'pinia-plugin-persist'
-const store = createPinia()
-store.use(piniaPluginPersist)
+import pinia from '@store'
+
 
 //icon图标
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-import "@assets/css/style.scss"
+
+// 国际化
+import ElementPlus from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+app.use(ElementPlus, {
+  locale: zhCn,
+})
+
 import 'element-plus/theme-chalk/index.css'
 
-app.use(store).use(router).mount('#app')
+app.use(pinia).use(router).mount('#app')

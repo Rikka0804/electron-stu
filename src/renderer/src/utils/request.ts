@@ -1,12 +1,15 @@
-import axios from 'axios'
-
+import axios, { Method } from 'axios'
+import { useUserStore } from '@store'
 const instance = axios.create({
   baseURL:'/api'
 })
 
 instance.interceptors.request.use(
   (config) => {
-    // TODO 2. 携带token
+    const store = useUserStore()
+    if (store.token && config.headers) {
+      config.headers['Authorization'] = `${store.token}`
+    }
     return config
   },
   (err) => Promise.reject(err)
@@ -25,3 +28,21 @@ instance.interceptors.response.use(
 )
 
 export default instance
+
+type Data<T> = {
+  code: string
+  msg: string
+  data: T
+}
+// 4. 请求工具函数
+export const request = <T>(
+  url: string,
+  method: Method = 'get',
+  submitData?: object
+) => {
+  return instance.request<any, Data<T>>({
+    url,
+    method,
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+  })
+}

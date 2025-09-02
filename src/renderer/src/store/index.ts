@@ -1,11 +1,10 @@
-import { defineStore } from 'pinia'
-import { useUserStore } from './useUserStore'
-export const useStore = defineStore('storeId', {
-  state: () => {
-    return {
-      user:useUserStore()
-    }
-  },
-  getters:{},
-  actions:{}
-})
+import { createPinia } from 'pinia'
+import piniaPluginPersist from 'pinia-plugin-persist'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersist)
+
+export default pinia
+
+export * from './useUserStore'
+export * from './useMenuStore'

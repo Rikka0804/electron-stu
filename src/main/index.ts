@@ -12,6 +12,7 @@ function createWindow(): void {
     // titleBarStyle: 'hidden',
     // ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
     frame: false,
+    resizable: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -24,6 +25,27 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+  })
+
+  ipcMain.handle('custom-adsorption', (event, res) => {
+    let x = res.appX;
+    let y = res.appY;
+    mainWindow.setPosition(x, y)
+  })
+  ipcMain.handle('close-login', (event, res) => {
+    mainWindow.close()
+  })
+
+  // 进入首页改变窗口大小
+  ipcMain.handle('resize-window', (event, res) => {
+    //窗口大小
+    mainWindow.setSize(1200, 720);
+    //窗口最小值
+    mainWindow.setMinimumSize(1000, 500);
+    //窗口居中
+    mainWindow.center();
+    //窗口大小可以修改
+    mainWindow.setResizable(true);
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

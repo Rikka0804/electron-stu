@@ -1,12 +1,17 @@
 export const AppRoutes =[
   {
-    path: '/',
-    name: 'Home',
+    path: '/login',
+    name: 'login',
     component: () => import('@views/login/index.vue')
   },
   {
-    path: '/list',
-    name: 'List',
-    component: () => import('@renderer/components/list.vue')
+    path: '/',
+    name: 'layout',
+    component: () => import('@layout/index.vue'),
+    redirect: '/dashboard',
+  	children: [{
+  		path: '/dashboard',
+  		component: () => import('@views/home/index.vue')
+  	}]
   }
 ]
